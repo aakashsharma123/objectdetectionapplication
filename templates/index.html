@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Detection from Images</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa; /* light gray */
+            color: #333; /* dark gray */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #007bff; /* blue */
+            margin-top: 20px;
+        }
+        p {
+            margin-bottom: 30px;
+        }
+        .upload-form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .upload-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+        .upload-button:hover {
+            background-color: #0056b3;
+        }
+        #uploaded-image {
+            width: 50%; /* Decreased image width */
+            display: block;
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3); /* subtle shadow */
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Object Detection from Images!</h1>
+    <p>This webpage allows you to predict objects present within an image. Simply upload an image below, and let the magic happen!</p>
+    <form class="upload-form" action="/upload" method="post" enctype="multipart/form-data" id="upload-form">
+        <input type="file" name="file" accept="image/*" id="upload-input">
+        
+        <input class="upload-button" type="submit" value="Predict">
+    </form>
+    <img src="#" alt="Uploaded Image" id="uploaded-image" style="display: none;">
+    <script>
+        document.getElementById('upload-input').addEventListener('change', function() {
+            var file = this.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('uploaded-image').setAttribute('src', e.target.result);
+                    document.getElementById('uploaded-image').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
